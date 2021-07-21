@@ -51,7 +51,7 @@ class ProductTest < ActiveSupport::TestCase
               "#{image_url} shouldn't be invalid"
     end 
     bad.each do |image_url|
-      assert new_product(image_url).valid?,
+      assert new_product(image_url).invalid?,
               "#{image_url} shouldn't be valid"
     end 
   end 
@@ -61,16 +61,17 @@ class ProductTest < ActiveSupport::TestCase
                           description:    "yyy",
                           price:          1,
                           image_url:      "fred.gif")
+    assert product.invalid?                
     assert_equal ["has already been taken"], product.errors[:title]
   end 
 
-  test "product is not valid without a unique title - il8n" do  
+  test "product is not valid without a unique title - i18n" do
     product = Product.new(title:        products(:ruby).title,
                           description:  "yyy",
                           price:        1,
                           image_url:    "fred.gif")
-    assert_product.invalid?
-    assert_equal [Il8n.translate('errors.messages.taken')],
+    assert product.invalid?
+    assert_equal [I18n.translate('errors.messages.taken')],
                   product.errors[:title]
   end
 end
