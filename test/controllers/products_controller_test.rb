@@ -47,7 +47,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
         description: @product.description, 
           image_url: @product.image_url, 
           price: @product.price, 
-          title: @product.title 
+          title: @title 
       } 
     }
     assert_redirected_to product_url(@product)
